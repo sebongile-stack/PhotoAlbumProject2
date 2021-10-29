@@ -67,7 +67,7 @@ namespace PhotoAlbumProject2
 
             catch(Exception ex)
             {
-                Label6.Text = ex.Message;
+                Exception.Text = ex.Message;
             }
         }
         public static string HashString(string password, string salt)
