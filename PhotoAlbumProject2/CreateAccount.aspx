@@ -74,6 +74,11 @@
                     </td>
                 </tr>
                 <tr>
+                    <td class="auto-style4">&nbsp;</td>
+                    <td class="auto-style5">&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
                     <td class="auto-style4">
             <asp:Label ID="Label2" runat="server" Text="Last Name:" Font-Bold="True"></asp:Label>
                     </td>
@@ -83,6 +88,11 @@
                     <td>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Last name required!" ControlToValidate="txtLName" Font-Bold="True"></asp:RequiredFieldValidator>
                     </td>
+                </tr>
+                <tr>
+                    <td class="auto-style4">&nbsp;</td>
+                    <td class="auto-style5">&nbsp;</td>
+                    <td>&nbsp;</td>
                 </tr>
                 <tr>
                     <td class="auto-style4">
@@ -96,6 +106,11 @@
                     </td>
                 </tr>
                 <tr>
+                    <td class="auto-style2">&nbsp;</td>
+                    <td class="auto-style5">&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
                     <td class="auto-style4">
             <asp:Label ID="Label4" runat="server" Text="Password:" Font-Bold="True"></asp:Label>
                     </td>
@@ -105,6 +120,11 @@
                     <td>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Password required!" ControlToValidate="txtPassword" Font-Bold="True"></asp:RequiredFieldValidator>
                     </td>
+                </tr>
+                <tr>
+                    <td class="auto-style4">&nbsp;</td>
+                    <td class="auto-style5">&nbsp;</td>
+                    <td>&nbsp;</td>
                 </tr>
                 <tr>
                     <td class="auto-style4">
@@ -118,21 +138,36 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="auto-style2">&nbsp;</td>
+                    <td class="auto-style4">&nbsp;</td>
                     <td class="auto-style5">&nbsp;</td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
-                    <td class="auto-style2">&nbsp;</td>
+                    <td class="auto-style4">&nbsp;</td>
                     <td class="auto-style5">
             <asp:Button ID="Button1" runat="server" Text="Sign Up" Width="206px" OnClick="Button1_Click" CssClass="auto-style10" Font-Bold="True" />
                     </td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
+                    <td class="auto-style4">&nbsp;</td>
+                    <td class="auto-style5">&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
                     <td class="auto-style4">
-        <asp:Label ID="Exception" runat="server"></asp:Label>
+        <asp:Label ID="Exception" runat="server" Font-Bold="True"></asp:Label>
                     </td>
+                    <td class="auto-style5">&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="auto-style4">&nbsp;</td>
+                    <td class="auto-style5">&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="auto-style4">&nbsp;</td>
                     <td class="auto-style5">&nbsp;</td>
                     <td>&nbsp;</td>
                 </tr>

@@ -33,12 +33,12 @@ namespace PhotoAlbumProject2
             }
             else
             {
-                Console.WriteLine("The file extension of your chose is not supported.");
+                Console.WriteLine("The file extension of your choice is not supported.");
             }
 
+            SqlConnection con = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\Sibongile Mazibuko\Documents\photodata.mdf; Integrated Security = True; Connect Timeout = 30");
             try
             {
-                SqlConnection con = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\Sibongile Mazibuko\Documents\photodata.mdf; Integrated Security = True; Connect Timeout = 30");
                 string sql = "INSERT INTO [PhotoData] (Id, FileName, FileExtesion, FileSize, FileContent, FileMetadata) VALUES (@Id, @FileName, @FileExtension, @FileSize, @FileContent, @FileMetadata)";
                 SqlCommand command = new SqlCommand(sql, con);
                 command.Parameters.AddWithValue("Id", txtid.Text.Trim());
@@ -47,6 +47,8 @@ namespace PhotoAlbumProject2
                 command.Parameters.AddWithValue("FileSize", filesize);
                 command.Parameters.AddWithValue("FileContent", bytes);
                 //command.Parameters.AddWithValue("FileMetadata", );
+
+                string sqll = "SELECT * FROM PhotoData";
 
                 con.Open();
                 command.ExecuteNonQuery();
@@ -68,7 +70,7 @@ namespace PhotoAlbumProject2
             SqlConnection con = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\Sibongile Mazibuko\Documents\photodata.mdf; Integrated Security = True; Connect Timeout = 30");
             try
             {
-                string sql = "SELECT * FROM PhotoData ";
+                string sql = "SELECT * FROM PhotoData";
                 SqlCommand command = new SqlCommand(sql, con);
                 con.Open();
                 SqlDataAdapter da = new SqlDataAdapter();
