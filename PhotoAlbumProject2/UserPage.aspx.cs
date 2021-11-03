@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Data;
+using System.Diagnostics;
 
 namespace PhotoAlbumProject2
 {
@@ -33,29 +34,32 @@ namespace PhotoAlbumProject2
             }
             else
             {
-                Console.WriteLine("The file extension of your choice is not supported.");
+                Debug.WriteLine("The file extension of your choice is not supported.");
             }
 
-            SqlConnection con = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\Sibongile Mazibuko\Documents\photodata.mdf; Integrated Security = True; Connect Timeout = 30");
-            try
-            {
-                string sql = "INSERT INTO [PhotoData] (Id, FileName, FileExtesion, FileSize, FileContent, FileMetadata) VALUES (@Id, @FileName, @FileExtension, @FileSize, @FileContent, @FileMetadata)";
-                SqlCommand command = new SqlCommand(sql, con);
-                command.Parameters.AddWithValue("Id", txtid.Text.Trim());
-                command.Parameters.AddWithValue("FileName", filename);
-                command.Parameters.AddWithValue("FileExtension", fileextension);
-                command.Parameters.AddWithValue("FileSize", filesize);
-                command.Parameters.AddWithValue("FileContent", bytes);
-                //command.Parameters.AddWithValue("FileMetadata", );
+            string conString = @"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\Sibongile Mazibuko\Documents\photodata.mdf; Integrated Security = True; Connect Timeout = 30";
 
-                string sqll = "SELECT * FROM PhotoData";
+            using (SqlConnection con = new SqlConnection(conString))
+                try
+                {
+                    con.Open();
+                    string sql = "INSERT INTO [PhotoData] VALUES (@id, @filename, @fileextension, @filesize, @filecontent, @filemetadata)";
+                    SqlCommand command = new SqlCommand(sql, con);
+                    command.Parameters.AddWithValue("id", txtid.Text.Trim());
+                    command.Parameters.AddWithValue("filename", filename);
+                    command.Parameters.AddWithValue("fileextension", fileextension);
+                    command.Parameters.AddWithValue("filesize", filesize);
+                    command.Parameters.AddWithValue("filecontent", bytes);
+                    //command.Parameters.AddWithValue("FileMetadata", );
 
-                con.Open();
-                command.ExecuteNonQuery();
-            }
-            catch (Exception ex) {
-                Console.WriteLine(ex.Message);
-            }
+                    //string sqll = "SELECT * FROM PhotoData";
+
+                    
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex) {
+                    Debug.WriteLine(ex.Message);
+                }
 
             
         }
@@ -67,10 +71,11 @@ namespace PhotoAlbumProject2
 
         protected void btnview_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\Sibongile Mazibuko\Documents\photodata.mdf; Integrated Security = True; Connect Timeout = 30");
+            string conString = @"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\Sibongile Mazibuko\Documents\photodata.mdf; Integrated Security = True; Connect Timeout = 30";
+            using (SqlConnection con = new SqlConnection(conString))      
             try
             {
-                string sql = "SELECT * FROM PhotoData";
+                string sql = "SELECT * FROM PhotoData WHERE Id='" + txtid.Text.Trim() + "'";
                 SqlCommand command = new SqlCommand(sql, con);
                 con.Open();
                 SqlDataAdapter da = new SqlDataAdapter();
@@ -87,7 +92,7 @@ namespace PhotoAlbumProject2
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Debug.WriteLine(ex.Message);
             }
             
 
