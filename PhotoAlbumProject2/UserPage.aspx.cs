@@ -25,6 +25,8 @@ namespace PhotoAlbumProject2
             string filename = Path.GetFileName(postedFile.FileName);
             string fileextension = Path.GetExtension(postedFile.FileName);
             int filesize = postedFile.ContentLength;
+            DateTime metadata = DateTime.Now; // will give the date for today
+            string dateWithFormat = metadata.ToLongDateString();
 
             if (fileextension.ToLower() == ".jpg" || fileextension.ToLower() == ".bmp" || fileextension.ToLower() == ".ico" || fileextension.ToLower() == ".jpeg" || fileextension.ToLower() == "gif" || fileextension.ToLower() == ".tiff" || fileextension.ToLower() == ".png")
             {
@@ -45,12 +47,12 @@ namespace PhotoAlbumProject2
                     con.Open();
                     string sql = "INSERT INTO [PhotoData] VALUES (@id, @filename, @fileextension, @filesize, @filecontent, @filemetadata)";
                     SqlCommand command = new SqlCommand(sql, con);
-                    command.Parameters.AddWithValue("id", txtid.Text.Trim());
-                    command.Parameters.AddWithValue("filename", filename);
-                    command.Parameters.AddWithValue("fileextension", fileextension);
-                    command.Parameters.AddWithValue("filesize", filesize);
-                    command.Parameters.AddWithValue("filecontent", bytes);
-                    //command.Parameters.AddWithValue("FileMetadata", );
+                    command.Parameters.AddWithValue("@id", txtid.Text.Trim());
+                    command.Parameters.AddWithValue("@filename", filename);
+                    command.Parameters.AddWithValue("@fileextension", fileextension);
+                    command.Parameters.AddWithValue("@filesize", filesize);
+                    command.Parameters.AddWithValue("@filecontent", bytes);
+                    command.Parameters.AddWithValue("@FileMetadata", metadata);
 
                     //string sqll = "SELECT * FROM PhotoData";
 
