@@ -20,50 +20,61 @@ namespace PhotoAlbumProject2
 
         protected void btnupload_Click(object sender, EventArgs e)
         {
+           
             byte[] bytes = null;
-            HttpPostedFile postedFile = FileUpload1.PostedFile;
-            string filename = Path.GetFileName(postedFile.FileName);
-            string fileextension = Path.GetExtension(postedFile.FileName);
-            int filesize = postedFile.ContentLength;
-            DateTime metadata = DateTime.Now; // will give the date for today
-            string dateWithFormat = metadata.ToLongDateString();
+            HttpPostedFile postedfile = FileUpload1.PostedFile;
+            string filename = Path.GetFileName(postedfile.FileName);
+            string fileextension = Path.GetExtension(postedfile.FileName);
+            int filesize = postedfile.ContentLength;
+            DateTime date = DateTime.Now; // will give the date for today
+            string dateWithFormat = date.ToLongDateString();
 
-            if (fileextension.ToLower() == ".jpg" || fileextension.ToLower() == ".bmp" || fileextension.ToLower() == ".ico" || fileextension.ToLower() == ".jpeg" || fileextension.ToLower() == "gif" || fileextension.ToLower() == ".tiff" || fileextension.ToLower() == ".png")
+            if (fileextension.ToLower() == ".jpg" || fileextension.ToLower() == ".bmp" || fileextension.ToLower() == ".ico" || fileextension.ToLower() == ".jpeg" || fileextension.ToLower() == ".gif" || fileextension.ToLower() == ".tiff" || fileextension.ToLower() == ".png")
             {
-                Stream stream = postedFile.InputStream;
+                Stream stream = postedfile.InputStream;
                 BinaryReader binaryreader = new BinaryReader(stream);
                 bytes = binaryreader.ReadBytes((int)stream.Length);
             }
             else
             {
-                Debug.WriteLine("The file extension of your choice is not supported.");
+                //Debug.WriteLine("The file extension of your choice is not supported.");
             }
 
-            string conString = @"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\Sibongile Mazibuko\Documents\photodata.mdf; Integrated Security = True; Connect Timeout = 30";
+
+            //string conString = @"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\Sibongile Mazibuko\Documents\photodata.mdf; Integrated Security = True";
+            string conString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C: \Users\Sibongile Mazibuko\Documents\photoDb.mdf;Integrated Security=True";
 
             using (SqlConnection con = new SqlConnection(conString))
-                try
+            {
+
+                try 
                 {
                     con.Open();
-                    string sql = "INSERT INTO [PhotoData] VALUES (@id, @filename, @fileextension, @filesize, @filecontent, @filemetadata)";
-                    SqlCommand command = new SqlCommand(sql, con);
-                    command.Parameters.AddWithValue("@id", txtid.Text.Trim());
+                    string query = "INSERT INTO [PhotoInfo] VALUES (@code, @filename, @fileextension, @filesize, @filecontent, @date)";
+
+                    //string sql = "INSERT INTO [PhotoData] VALUES (@filename, @fileextension, @filesize, @filecontent, @metadata)";
+                    SqlCommand command = new SqlCommand(query, con);
+                    command.Parameters.AddWithValue("@code", txtid.Text);
+                    //command.Parameters.AddWithValue("@id", txtid.Text.Trim());
                     command.Parameters.AddWithValue("@filename", filename);
                     command.Parameters.AddWithValue("@fileextension", fileextension);
                     command.Parameters.AddWithValue("@filesize", filesize);
                     command.Parameters.AddWithValue("@filecontent", bytes);
-                    command.Parameters.AddWithValue("@FileMetadata", metadata);
+                    command.Parameters.AddWithValue("@date", date);
 
                     //string sqll = "SELECT * FROM PhotoData";
 
-                    
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex) {
-                    Debug.WriteLine(ex.Message);
-                }
 
-            
+                    command.ExecuteNonQuery();
+                    con.Close();
+
+                }
+                catch(Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+
+                }
+            }
         }
 
         protected void btnshow_Click(object sender, EventArgs e)
@@ -97,6 +108,28 @@ namespace PhotoAlbumProject2
                 Debug.WriteLine(ex.Message);
             }
             
+
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            string conString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C: \Users\Sibongile Mazibuko\Documents\photoDb.mdf;Integrated Security=True";
+            SqlConnection con = new SqlConnection(conString);
+
+            try
+            {
+                con.Open();
+                string query = "SELECT * FROM PhotoInfo";
+                SqlCommand command = new SqlCommand(query, con);
+
+                con.Close();
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+
 
         }
     }

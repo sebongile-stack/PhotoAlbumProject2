@@ -16,6 +16,8 @@
             <asp:FileUpload ID="FileUpload1" runat="server" />
             <asp:Image ID="Image1" runat="server" />
         <%--</div>--%>
+        </div>
+        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
     </form>
 </body>
 </html>
