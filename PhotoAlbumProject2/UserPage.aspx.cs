@@ -23,11 +23,8 @@ namespace PhotoAlbumProject2
            
             byte[] bytes = null;
             HttpPostedFile postedfile = FileUpload1.PostedFile;
-            string filename = Path.GetFileName(postedfile.FileName);
             string fileextension = Path.GetExtension(postedfile.FileName);
-            int filesize = postedfile.ContentLength;
-            DateTime date = DateTime.Now; // will give the date for today
-            string dateWithFormat = date.ToLongDateString();
+            txtDate.Text = DateTime.Now.ToString("dd-MM-yyyy"); // will give the date for today
 
             if (fileextension.ToLower() == ".jpg" || fileextension.ToLower() == ".bmp" || fileextension.ToLower() == ".ico" || fileextension.ToLower() == ".jpeg" || fileextension.ToLower() == ".gif" || fileextension.ToLower() == ".tiff" || fileextension.ToLower() == ".png")
             {
@@ -37,41 +34,34 @@ namespace PhotoAlbumProject2
             }
             else
             {
-                //Debug.WriteLine("The file extension of your choice is not supported.");
+                Label1.Text = "File extension not suppoerted";
             }
 
 
-            //string conString = @"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\Sibongile Mazibuko\Documents\photodata.mdf; Integrated Security = True";
-            string conString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C: \Users\Sibongile Mazibuko\Documents\photoDb.mdf;Integrated Security=True";
+            
+            string conString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Sibongile Mazibuko\Documents\photoDb.mdf;Integrated Security=True";
 
             using (SqlConnection con = new SqlConnection(conString))
             {
 
                 try 
                 {
+                    FileUpload1.SaveAs(Server.MapPath("~/images/") + Path.GetFileName(FileUpload1.FileName));
+                    string image = "~/images/" + Path.GetFileName(FileUpload1.FileName);
                     con.Open();
-                    string query = "INSERT INTO [PhotoInfo] VALUES (@code, @filename, @fileextension, @filesize, @filecontent, @date)";
+                    string query = "INSERT INTO [PhotoInfo] (FileName, Description, Date, Image) VALUES ('"+ txtName.Text +"', '"+ txtDescription.Text +"', '"+txtDate.Text+ "', '" +image+ "')";
 
-                    //string sql = "INSERT INTO [PhotoData] VALUES (@filename, @fileextension, @filesize, @filecontent, @metadata)";
                     SqlCommand command = new SqlCommand(query, con);
-                    command.Parameters.AddWithValue("@code", txtid.Text);
-                    //command.Parameters.AddWithValue("@id", txtid.Text.Trim());
-                    command.Parameters.AddWithValue("@filename", filename);
-                    command.Parameters.AddWithValue("@fileextension", fileextension);
-                    command.Parameters.AddWithValue("@filesize", filesize);
-                    command.Parameters.AddWithValue("@filecontent", bytes);
-                    command.Parameters.AddWithValue("@date", date);
-
-                    //string sqll = "SELECT * FROM PhotoData";
-
-
+                    
                     command.ExecuteNonQuery();
                     con.Close();
+
+
 
                 }
                 catch(Exception ex)
                 {
-                    Debug.WriteLine(ex.Message);
+                    Label1.Text = ex.Message;
 
                 }
             }
@@ -84,28 +74,36 @@ namespace PhotoAlbumProject2
 
         protected void btnview_Click(object sender, EventArgs e)
         {
-            string conString = @"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\Sibongile Mazibuko\Documents\photodata.mdf; Integrated Security = True; Connect Timeout = 30";
+            string conString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Sibongile Mazibuko\Documents\photoDb.mdf;Integrated Security=True";
             using (SqlConnection con = new SqlConnection(conString))      
             try
             {
-                string sql = "SELECT * FROM PhotoData WHERE Id='" + txtid.Text.Trim() + "'";
+                string sql = "SELECT * FROM [PhotoInfo]";
                 SqlCommand command = new SqlCommand(sql, con);
                 con.Open();
                 SqlDataAdapter da = new SqlDataAdapter();
                 da.SelectCommand = command;
-                DataTable datatable = new DataTable();
-                da.Fill(datatable);
-                if (datatable != null && datatable.Rows.Count > 0)
-                {
-                    byte[] bytes = (byte[])datatable.Rows[0]["FileContent"];
-                    string strng = Convert.ToBase64String(bytes);
 
-                    Image1.ImageUrl = "data:Image/png;base64," + strng;
-                }
+                DataSet data = new DataSet();
+
+                da.Fill(data);
+                GridView1.DataSource = data;
+                GridView1.DataBind();
+                con.Close();
+
+                //DataTable datatable = new DataTable();
+                //da.Fill(datatable);
+                //if (datatable != null && datatable.Rows.Count > 0)
+                //{
+                //    byte[] bytes = (byte[])datatable.Rows[0]["FileContent"];
+                //    string strng = Convert.ToBase64String(bytes);
+
+                //    Image1.ImageUrl = "data:Image/png;base64," + strng;
+                //}
             }
             catch(Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+                  Label1.Text = ex.Message;
             }
             
 
@@ -130,6 +128,77 @@ namespace PhotoAlbumProject2
                 Debug.WriteLine(ex.Message);
             }
 
+
+        }
+
+        protected void txtName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            string conString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Sibongile Mazibuko\Documents\photoDb.mdf;Integrated Security=True";
+            using (SqlConnection con = new SqlConnection(conString))     
+            try
+            {
+                    SqlDataAdapter da;
+                    SqlCommand command;
+                    da = new SqlDataAdapter();
+                    con.Open();
+                    string query = "DELETE FROM [PhotoInfo] WHERE FileName LIKE '"+ txtDelete.Text +"' ";
+                    command = new SqlCommand(query, con);
+                    da.DeleteCommand = new SqlCommand(query, con);
+                    da.DeleteCommand.ExecuteNonQuery();
+
+                    command.Dispose();
+                    con.Close();
+      
+            }
+            catch (SqlException ex) 
+            {
+                    Label1.Text = ex.Message;
+            }
+            
+        }
+        protected void DownloadFile(object sender, EventArgs e)
+        {
+            string FilePath = (sender as LinkButton).CommandArgument;
+            Response.ContentType = ContentType;
+            Response.AppendHeader("Content-Disposition", "attachment; filename="+ Path.GetFileName(FilePath));
+            Response.WriteFile(FilePath);
+            Response.End();
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            string conString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Sibongile Mazibuko\Documents\photoDb.mdf;Integrated Security=True";
+            
+
+            SqlDataAdapter da;
+            SqlCommand command;
+            DataSet ds;
+
+            try 
+            {
+                SqlConnection con = new SqlConnection(conString);
+                da = new SqlDataAdapter();
+                ds = new DataSet();
+                con.Open();
+                string query = "SELECT * FROM [PhotoInfo] WHERE FileName LIKE '%" +txtSearch.Text+ "%'"; 
+                command = new SqlCommand(query, con);
+                da.SelectCommand = command;
+                da.Fill(ds);
+
+                GridView1.DataSource = ds;
+                GridView1.DataBind();
+                con.Close();
+
+            }
+            catch (SqlException ex)
+            {
+                Label1.Text = ex.Message;
+            }
 
         }
     }

@@ -38,8 +38,6 @@
         <div>
             <br />
             <br />
-            <br />
-            <br />
             <table class="auto-style1">
                 <tr>
                     <td class="auto-style2">&nbsp;</td>
