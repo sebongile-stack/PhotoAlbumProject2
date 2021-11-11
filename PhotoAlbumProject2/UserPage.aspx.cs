@@ -56,8 +56,7 @@ namespace PhotoAlbumProject2
                     command.ExecuteNonQuery();
                     con.Close();
 
-
-
+                    Label1.Text = "Data submitted to the database.";
                 }
                 catch(Exception ex)
                 {
@@ -91,15 +90,7 @@ namespace PhotoAlbumProject2
                 GridView1.DataBind();
                 con.Close();
 
-                //DataTable datatable = new DataTable();
-                //da.Fill(datatable);
-                //if (datatable != null && datatable.Rows.Count > 0)
-                //{
-                //    byte[] bytes = (byte[])datatable.Rows[0]["FileContent"];
-                //    string strng = Convert.ToBase64String(bytes);
-
-                //    Image1.ImageUrl = "data:Image/png;base64," + strng;
-                //}
+                
             }
             catch(Exception ex)
             {
@@ -201,5 +192,6 @@ namespace PhotoAlbumProject2
             }
 
         }
+
     }
 }
