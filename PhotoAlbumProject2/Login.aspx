@@ -14,10 +14,10 @@
                 width: 335px;
             }
             .auto-style3 {
-                width: 340px;
+                width: 333px;
             }
             .auto-style4 {
-                width: 340px;
+                width: 333px;
                 text-align: center;
             }
             .auto-style5 {
@@ -30,6 +30,10 @@
             .auto-style7 {
                 background-color: darkgray;
                 margin-left: 73px;
+            }
+            .auto-style8 {
+                margin-left: 3px;
+                margin-right: 0px;
             }
         </style>
 </head>
@@ -61,7 +65,7 @@
             <asp:Label ID="Label3" runat="server" Text="Email:" Font-Bold="True"></asp:Label>
                     </td>
                     <td class="auto-style3">
-            <asp:TextBox ID="textEmail" runat="server" TextMode="Email" OnTextChanged="txtEmail_TextChanged" Width="328px" CssClass="auto-style6"></asp:TextBox>
+            <asp:TextBox ID="textEmail" runat="server" TextMode="Email" OnTextChanged="txtEmail_TextChanged" Width="328px" CssClass="auto-style8"></asp:TextBox>
                     </td>
                     <td>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Email required!" ControlToValidate="textEmail" Font-Bold="True"></asp:RequiredFieldValidator>
@@ -91,7 +95,7 @@
                 <tr>
                     <td class="auto-style2">&nbsp;</td>
                     <td class="auto-style3">
-            <asp:Button ID="btnLogin" runat="server" Text="Login" Width="188px" CssClass="auto-style7" OnClick="btnLogin_Click"/>
+            <asp:Button ID="btnLogin" runat="server" Text="Login" Width="188px" CssClass="auto-style7" OnClick="btnLogin_Click" Font-Bold="True"/>
                     </td>
                     <td>&nbsp;</td>
                 </tr>
@@ -116,7 +120,7 @@
                 </tr>
                 <tr>
                     <td class="auto-style5">
-            <asp:Label ID="Label5" runat="server" Text="Exception"></asp:Label>
+            <asp:Label ID="Label5" runat="server" Text="Exception" Font-Bold="True"></asp:Label>
                     </td>
                     <td class="auto-style3">&nbsp;</td>
                     <td>&nbsp;</td>

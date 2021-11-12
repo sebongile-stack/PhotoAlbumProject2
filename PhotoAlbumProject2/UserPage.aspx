@@ -29,6 +29,17 @@
                 height: 23px;
                 text-align: right;
             }
+            .auto-style7 {
+                margin-left: 0px;
+            }
+            .auto-style10 {
+                width: 508px;
+                height: 19px;
+                text-align: right;
+            }
+            .auto-style11 {
+                height: 19px;
+            }
         </style>
 </head>
 <body>
@@ -37,7 +48,9 @@
             <br />
             <table class="auto-style1">
                 <tr>
-                    <td class="auto-style3">File Name:<%--</div>--%></td>
+                    <td class="auto-style3">
+                        <asp:Label ID="Label3" runat="server" Font-Bold="True" Text="File Name:"></asp:Label>
+                    </td>
                     <td><asp:TextBox ID="txtName" runat="server" OnTextChanged="txtName_TextChanged" Width="234px"></asp:TextBox>
                     </td>
                 </tr>
@@ -46,10 +59,11 @@
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
-                    <td class="auto-style3">Description:
-            </td>
+                    <td class="auto-style3">
+                        <asp:Label ID="Label2" runat="server" Font-Bold="True" Text="Description:"></asp:Label>
+&nbsp;</td>
                     <td>
-            <asp:TextBox ID="txtDescription" runat="server" Width="232px"></asp:TextBox>
+            <asp:TextBox ID="txtDescription" runat="server" Width="234px"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
@@ -57,10 +71,10 @@
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
-                    <td class="auto-style3">Date:
+                    <td class="auto-style3">&nbsp;<asp:Label ID="Label4" runat="server" Font-Bold="True" Text="Date:"></asp:Label>
             </td>
                     <td>
-            <asp:TextBox ID="txtDate" runat="server" TextMode="Date" Width="231px"></asp:TextBox>
+            <asp:TextBox ID="txtDate" runat="server" TextMode="Date" Width="234px"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
@@ -70,7 +84,7 @@
                 <tr>
                     <td class="auto-style2">&nbsp;</td>
                     <td>
-            <asp:FileUpload ID="FileUpload1" runat="server" />
+            <asp:FileUpload ID="FileUpload1" runat="server" Font-Bold="True" />
             <asp:Image ID="Image1" runat="server" />
                     </td>
                 </tr>
@@ -80,7 +94,7 @@
                 </tr>
                 <tr>
                     <td class="auto-style3">
-            <asp:Button ID="btnupload" OnClick="btnupload_Click" runat="server" Text="Upload" />
+            <asp:Button ID="btnupload" OnClick="btnupload_Click" runat="server" Text="Upload" Font-Bold="True" Width="234px" />
                     </td>
                     <td>&nbsp;</td>
                 </tr>
@@ -90,9 +104,21 @@
                 </tr>
                 <tr>
                     <td class="auto-style6">
-            <asp:Button ID="btnview" OnClick="btnview_Click" runat="server" Text="View" />
+            <asp:Button ID="btnview" OnClick="btnview_Click" runat="server" Text="View" CssClass="auto-style7" Font-Bold="True" Width="234px" />
                     </td>
                     <td class="auto-style5">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="auto-style10"></td>
+                    <td class="auto-style11"></td>
+                </tr>
+                <tr>
+                    <td class="auto-style6">
+                        <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Delete" Font-Bold="True" Width="234px" />
+                    </td>
+                    <td class="auto-style5">
+                        <asp:TextBox ID="txtDelete" runat="server" Width="233px"></asp:TextBox>
+                    </td>
                 </tr>
                 <tr>
                     <td class="auto-style6">&nbsp;</td>
@@ -100,28 +126,16 @@
                 </tr>
                 <tr>
                     <td class="auto-style6">
-                        <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Delete" />
+                        <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click" Text="Search" Font-Bold="True" Width="234px" />
                     </td>
                     <td class="auto-style5">
-                        <asp:TextBox ID="txtDelete" runat="server" Width="224px"></asp:TextBox>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="auto-style6">&nbsp;</td>
-                    <td class="auto-style5">&nbsp;</td>
-                </tr>
-                <tr>
-                    <td class="auto-style6">
-                        <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click" Text="Search" />
-                    </td>
-                    <td class="auto-style5">
-                        <asp:TextBox ID="txtSearch" runat="server" Width="222px"></asp:TextBox>
+                        <asp:TextBox ID="txtSearch" runat="server" Width="234px"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
                     <td class="auto-style6">
-                        &nbsp;</td>
-                    <td class="auto-style5">&nbsp;</td>
+                        </td>
+                    <td class="auto-style5"></td>
                 </tr>
                 <tr>
                     <td class="auto-style6">
