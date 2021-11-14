@@ -49,7 +49,7 @@ namespace PhotoAlbumProject2
                 }
                 else
                 {
-                    Label5.Text = "Incorrect user credentials";
+                    Label5.Text = "Incorrect user credentials. Please try again.";
                 }
 
                 con.Close();
