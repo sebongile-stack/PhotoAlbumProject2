@@ -36,8 +36,6 @@ namespace PhotoAlbumProject2
             {
                 Label1.Text = "File extension not suppoerted";
             }
-
-
             
             string conString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Sibongile Mazibuko\Documents\photoDb.mdf;Integrated Security=True";
 
