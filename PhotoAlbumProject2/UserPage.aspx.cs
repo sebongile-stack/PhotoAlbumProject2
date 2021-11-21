@@ -15,7 +15,7 @@ namespace PhotoAlbumProject2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         protected void btnupload_Click(object sender, EventArgs e)
@@ -34,7 +34,7 @@ namespace PhotoAlbumProject2
             }
             else
             {
-                Label1.Text = "File extension not suppoerted";
+                Label1.Text = "File extension not supported";
             }
             
             string conString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Sibongile Mazibuko\Documents\photoDb.mdf;Integrated Security=True";
@@ -47,7 +47,7 @@ namespace PhotoAlbumProject2
                     FileUpload1.SaveAs(Server.MapPath("~/images/") + Path.GetFileName(FileUpload1.FileName));
                     string image = "~/images/" + Path.GetFileName(FileUpload1.FileName);
                     con.Open();
-                    string query = "INSERT INTO [PhotoInfo] (FileName, Description, Date, Image) VALUES ('"+ txtName.Text +"', '"+ txtDescription.Text +"', '"+txtDate.Text+ "', '" +image+ "')";
+                    string query = "INSERT INTO [PhotoInfo] (FileName, Description, Date, Image) VALUES ('"+ txtName.Text +"', '"+ txtDescription.Text +"', '"+DateTime.Now+ "', '" +image+ "')";
 
                     SqlCommand command = new SqlCommand(query, con);
                     
@@ -94,8 +94,7 @@ namespace PhotoAlbumProject2
             {
                   Label1.Text = ex.Message;
             }
-            
-
+   
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -150,15 +149,7 @@ namespace PhotoAlbumProject2
             }
             
         }
-        protected void DownloadFile(object sender, EventArgs e)
-        {
-            string FilePath = (sender as LinkButton).CommandArgument;
-            Response.ContentType = ContentType;
-            Response.AppendHeader("Content-Disposition", "attachment; filename="+ Path.GetFileName(FilePath));
-            Response.WriteFile(FilePath);
-            Response.End();
-        }
-
+        
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             string conString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Sibongile Mazibuko\Documents\photoDb.mdf;Integrated Security=True";
@@ -191,5 +182,14 @@ namespace PhotoAlbumProject2
 
         }
 
+        protected void btnDownload_Click(object sender, EventArgs e)
+        {
+            string FilePath = txtDownload.Text;
+            Response.Clear();
+            Response.ContentType = "application/octect-stream";
+            Response.AppendHeader("content-disposition", "attachment;filename=" + FilePath);
+            Response.TransmitFile(Server.MapPath(FilePath));
+            Response.End();
+        }
     }
 }

@@ -150,13 +150,22 @@ namespace PhotoAlbumProject2
         protected global::System.Web.UI.WebControls.TextBox txtSearch;
 
         /// <summary>
-        /// linkButtonDownload control.
+        /// btnDownload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton linkButtonDownload;
+        protected global::System.Web.UI.WebControls.Button btnDownload;
+
+        /// <summary>
+        /// txtDownload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDownload;
 
         /// <summary>
         /// GridView1 control.

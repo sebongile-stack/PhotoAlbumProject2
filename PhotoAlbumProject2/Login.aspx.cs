@@ -10,7 +10,7 @@ namespace PhotoAlbumProject2
 {
     public partial class Login : System.Web.UI.Page
     {
-        SqlConnection con = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename=C:\Users\Sibongile Mazibuko\Documents\photoDb.mdf;Integrated Security = True; Connect Timeout = 30");
+        SqlConnection con = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename=C:\Users\Sibongile Mazibuko\Documents\photoDb.mdf;Integrated Security = True");
         protected void Page_Load(object sender, EventArgs e)
         {
             ValidationSettings.UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
@@ -50,6 +50,7 @@ namespace PhotoAlbumProject2
                 else
                 {
                     Label5.Text = "Incorrect user credentials. Please try again.";
+                    Label5.ForeColor = System.Drawing.Color.Red;
                 }
 
                 con.Close();

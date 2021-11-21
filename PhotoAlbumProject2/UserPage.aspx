@@ -139,9 +139,11 @@
                 </tr>
                 <tr>
                     <td class="auto-style6">
-                        <asp:LinkButton ID="linkButtonDownload" runat="server">Download</asp:LinkButton>
+                        <asp:Button ID="btnDownload" runat="server" Font-Bold="True" OnClick="btnDownload_Click" Text="Download" Width="234px" />
                     </td>
-                    <td class="auto-style5">&nbsp;</td>
+                    <td class="auto-style5">
+                        <asp:TextBox ID="txtDownload" runat="server" Width="234px"></asp:TextBox>
+                    </td>
                 </tr>
                 <tr>
                     <td class="auto-style6">
